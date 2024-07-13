@@ -1,8 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "hRq5LE32FM5X20XYCn9zH+W2k6hUaPkSWKpnIm6CVZsfcU30JAo76QWHUCTUWUaRxWUvJSo8Dmlgrubv+hq6vg==",
+  "dgSpecHash": "dc7rYHZM+BS2Sd9E16TUqvguoLToCOOMeNoMyJpLIf+Mbk6pE0/5h6syLTp9PyE3rXRbDrBLVNIQnULrCwj2wQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\wassi\\Documents\\Sogeti\\tech-assessment\\CSharp\\CSharp.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/home/aaron/Documents/repos/coding-challenges/sogeti-tech-assessment/CSharp/CSharp.csproj",
+  "expectedPackageFiles": [
+    "/home/aaron/.nuget/packages/microsoft.aspnetcore.openapi/8.0.4/microsoft.aspnetcore.openapi.8.0.4.nupkg.sha512",
+    "/home/aaron/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/home/aaron/.nuget/packages/microsoft.openapi/1.4.3/microsoft.openapi.1.4.3.nupkg.sha512",
+    "/home/aaron/.nuget/packages/swashbuckle.aspnetcore/6.4.0/swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
+    "/home/aaron/.nuget/packages/swashbuckle.aspnetcore.swagger/6.4.0/swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
+    "/home/aaron/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.4.0/swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
+    "/home/aaron/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.4.0/swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512"
+  ],
   "logs": []
 }
