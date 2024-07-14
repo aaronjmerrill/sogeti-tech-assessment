@@ -27,24 +27,28 @@ var inMemoryDatabase = new Dictionary<Guid, string>() {
 	{Guid.NewGuid(), "order 7"},
 };
 
-app.MapPost("/order/", ([FromBody] string order) => Results.Problem("not implemented"))
-.WithName("CreateOrder")
-.WithOpenApi();
+app.MapPost("/orders/", ([FromBody] string order) => Results.Problem("not implemented"))
+	.WithName("CreateOrder")
+	.WithOpenApi();
 
-app.MapGet("/order", () => Results.Ok(inMemoryDatabase))
-.WithName("GetAllOrders")
-.WithOpenApi();
+app.MapGet("/orders", () => Results.Ok(inMemoryDatabase))
+	.WithName("GetAllOrders")
+	.WithOpenApi();
 
-app.MapGet("/order/{id}", (Guid id) => Results.Problem("not implemented"))
-.WithName("GetOrderById")
-.WithOpenApi();
+app.MapGet("/orders/{id}", (Guid id) => Results.Problem("not implemented"))
+	.WithName("GetOrderById")
+	.WithOpenApi();
 
-app.MapPut("/order/{id}", (Guid id, [FromBody] string order) => Results.Problem("not implemented"))
-.WithName("UpdateOrderById")
-.WithOpenApi();
+app.MapPut("/orders/{id}", (Guid id, [FromBody] string order) => Results.Problem("not implemented"))
+	.WithName("UpdateOrderById")
+	.WithOpenApi();
 
-app.MapDelete("/order/{id}", (Guid id) => Results.Problem("not implemented"))
-.WithName("DeleteOrderById")
-.WithOpenApi();
+app.MapDelete("/orders/{id}", (Guid id) => Results.Problem("not implemented"))
+	.WithName("DeleteOrderById")
+	.WithOpenApi();
 
 app.Run();
+
+#if DEBUG
+public partial class Program { }
+#endif
