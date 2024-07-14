@@ -27,10 +27,24 @@ public class OrdersControllerTests : IClassFixture<ApiWebApplicationFactory> {
 	}
 
 	[Fact]
-	public async Task GetAll_ShouldReturnCorrectIds() {
+	public async Task GetAll_ShouldReturnCorrectOrders() {
 		var response = await _client.GetAsync("/orders");
 		var actual = await response.Content.ReadFromJsonAsync<Dictionary<Guid, string>>();
 
-		Assert.Equal(7, actual?.Count);
+		if (actual is null) Assert.Fail("Response should not be null");
+
+		string[] expectedOrders = [
+			"order 1",
+			"order 2",
+			"order 3",
+			"order 4",
+			"order 5",
+			"order 6",
+			"order 7",
+		];
+
+		foreach (var expected in expectedOrders) {
+			Assert.Contains(actual, item => item.Value == expected);
+		}
 	}
 }
