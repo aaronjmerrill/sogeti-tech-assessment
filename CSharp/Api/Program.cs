@@ -18,13 +18,13 @@ if (app.Environment.IsDevelopment()) {
 app.UseHttpsRedirection();
 
 var inMemoryDatabase = new Dictionary<Guid, string>() {
-	{Guid.NewGuid(), "order 1"},
-	{Guid.NewGuid(), "order 2"},
-	{Guid.NewGuid(), "order 3"},
-	{Guid.NewGuid(), "order 4"},
-	{Guid.NewGuid(), "order 5"},
-	{Guid.NewGuid(), "order 6"},
-	{Guid.NewGuid(), "order 7"},
+	{Guid.Parse("cec32c91-dda0-44f0-9d86-8e8a1c36cf5e"), "order 1"},
+	{Guid.Parse("15ec4f5b-fe3a-4668-93dd-9c5b88284679"), "order 2"},
+	{Guid.Parse("b1bdcca0-7a80-461e-9a4b-a222557f4db4"), "order 3"},
+	{Guid.Parse("ef2c716f-d2f6-44a3-8d75-06eb3b7ae711"), "order 4"},
+	{Guid.Parse("7c01479c-c4f2-4720-a6d2-6716b0aff408"), "order 5"},
+	{Guid.Parse("2e72fad9-13b9-4d39-9685-24c0bffe06b9"), "order 6"},
+	{Guid.Parse("e4a28a1a-8b8d-4b76-aa03-05eac30f0c83"), "order 7"},
 };
 
 app.MapPost("/orders/", ([FromBody] string order) => Results.Problem("not implemented"))
