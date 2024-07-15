@@ -19,6 +19,22 @@ public class OrdersControllerTests : IClassFixture<ApiWebApplicationFactory> {
 	}
 
 	[Fact]
+	public async Task CreateOrder_ShouldCreateOrderAndGetById() {
+		var fakeInput = "TestingCreateOrderEndpoint";
+
+		var response = await _client.PostAsJsonAsync<string>("/orders", fakeInput);
+		response.EnsureSuccessStatusCode();
+
+		var actual = await response.Content.ReadFromJsonAsync<Guid>();
+
+		response = await _client.GetAsync($"/orders/{actual}");
+		response.EnsureSuccessStatusCode();
+		var actualOrder = await response.Content.ReadFromJsonAsync<KeyValuePair<Guid, string>>();
+
+		Assert.Equal(fakeInput, actualOrder.Value);
+	}
+
+	[Fact]
 	public async Task GetAll_ShouldReturn7Records() {
 		var response = await _client.GetAsync("/orders");
 		var actual = await response.Content.ReadFromJsonAsync<Dictionary<Guid, string>>();
@@ -48,3 +64,4 @@ public class OrdersControllerTests : IClassFixture<ApiWebApplicationFactory> {
 		}
 	}
 }
+

@@ -27,7 +27,11 @@ var inMemoryDatabase = new Dictionary<Guid, string>() {
 	{Guid.Parse("e4a28a1a-8b8d-4b76-aa03-05eac30f0c83"), "order 7"},
 };
 
-app.MapPost("/orders/", ([FromBody] string order) => Results.Problem("not implemented"))
+app.MapPost("/orders/", ([FromBody] string order) => {
+	var key = Guid.NewGuid();
+	inMemoryDatabase.Add(key, order);
+	return Results.Ok(key);
+})
 	.WithName("CreateOrder")
 	.WithOpenApi();
 
@@ -35,7 +39,7 @@ app.MapGet("/orders", () => Results.Ok(inMemoryDatabase))
 	.WithName("GetAllOrders")
 	.WithOpenApi();
 
-app.MapGet("/orders/{id}", (Guid id) => Results.Problem("not implemented"))
+app.MapGet("/orders/{id}", (Guid id) => Results.Ok(inMemoryDatabase.FirstOrDefault(x => x.Key == id)))
 	.WithName("GetOrderById")
 	.WithOpenApi();
 
@@ -52,3 +56,9 @@ app.Run();
 #if DEBUG
 public partial class Program { }
 #endif
+
+
+internal class Order {
+	public Guid id;
+	public string? description;
+}
