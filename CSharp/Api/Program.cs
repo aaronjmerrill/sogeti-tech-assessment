@@ -39,15 +39,34 @@ app.MapGet("/orders", () => Results.Ok(inMemoryDatabase))
 	.WithName("GetAllOrders")
 	.WithOpenApi();
 
-app.MapGet("/orders/{id}", (Guid id) => Results.Ok(inMemoryDatabase.FirstOrDefault(x => x.Key == id)))
+app.MapGet("/orders/{id}", (Guid id) => {
+	if (!inMemoryDatabase.ContainsKey(id)) {
+		return Results.NotFound();
+	}
+	return Results.Ok(inMemoryDatabase.FirstOrDefault(x => x.Key == id));
+})
 	.WithName("GetOrderById")
 	.WithOpenApi();
 
-app.MapPut("/orders/{id}", (Guid id, [FromBody] string order) => Results.Problem("not implemented"))
+app.MapPut("/orders/{id}", (Guid id, [FromBody] string order) => {
+	if (!inMemoryDatabase.ContainsKey(id)) {
+		return Results.NotFound();
+	}
+	inMemoryDatabase[id] = order;
+	return Results.Accepted();
+})
 	.WithName("UpdateOrderById")
 	.WithOpenApi();
 
-app.MapDelete("/orders/{id}", (Guid id) => Results.Problem("not implemented"))
+app.MapDelete("/orders/{id}", (Guid id) => {
+	if (!inMemoryDatabase.ContainsKey(id)) {
+		return Results.NotFound();
+	}
+	if (!inMemoryDatabase.Remove(id)) {
+		return Results.Problem("unable to remove");
+	}
+	return Results.Ok();
+})
 	.WithName("DeleteOrderById")
 	.WithOpenApi();
 
@@ -56,9 +75,3 @@ app.Run();
 #if DEBUG
 public partial class Program { }
 #endif
-
-
-internal class Order {
-	public Guid id;
-	public string? description;
-}

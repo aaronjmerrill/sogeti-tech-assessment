@@ -22,16 +22,33 @@ public class OrdersControllerTests : IClassFixture<ApiWebApplicationFactory> {
 	public async Task CreateOrder_ShouldCreateOrderAndGetById() {
 		var fakeInput = "TestingCreateOrderEndpoint";
 
+		//Create
 		var response = await _client.PostAsJsonAsync<string>("/orders", fakeInput);
 		response.EnsureSuccessStatusCode();
 
-		var actual = await response.Content.ReadFromJsonAsync<Guid>();
+		var actualId = await response.Content.ReadFromJsonAsync<Guid>();
 
-		response = await _client.GetAsync($"/orders/{actual}");
+		//Get by id
+		response = await _client.GetAsync($"/orders/{actualId}");
 		response.EnsureSuccessStatusCode();
 		var actualOrder = await response.Content.ReadFromJsonAsync<KeyValuePair<Guid, string>>();
 
 		Assert.Equal(fakeInput, actualOrder.Value);
+
+		//Update
+		var fakeUpdateInput = "UpdatedValue";
+		response = await _client.PutAsJsonAsync<string>($"/orders/{actualId}", fakeUpdateInput);
+		response.EnsureSuccessStatusCode();
+
+		response = await _client.GetAsync($"/orders/{actualId}");
+		response.EnsureSuccessStatusCode();
+		actualOrder = await response.Content.ReadFromJsonAsync<KeyValuePair<Guid, string>>();
+
+		Assert.Equal(fakeUpdateInput, actualOrder.Value);
+
+		//Delete
+		response = await _client.DeleteAsync($"/orders/{actualId}");
+		response.EnsureSuccessStatusCode();
 	}
 
 	[Fact]
